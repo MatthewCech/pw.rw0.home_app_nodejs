@@ -1,0 +1,7 @@
+apps:
+  - script : index.js
+    name   : fresh
+    watch  : true
+    env    :
+      PORT: 42069
+

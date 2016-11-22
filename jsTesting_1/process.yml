@@ -1,0 +1,7 @@
+apps:
+  - script : index.js
+    name   : Test
+    watch  : true
+    env    :
+      PORT: 21025
+

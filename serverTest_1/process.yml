@@ -1,0 +1,7 @@
+apps:
+  - script : index.js
+    name   : serverTest
+    watch  : true
+    env    :
+      PORT: 42067
+

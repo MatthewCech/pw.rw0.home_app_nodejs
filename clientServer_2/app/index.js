@@ -15,18 +15,14 @@ var template = handlebars.compile(template_src);
 
 // Request for page at "page root"
 app.get('/', function(req, res){
-  // Look this line works but don't do it.
-  //res.send('<!DOCTYPE html><html><head><title>Chat server: Admin page</title><meta name="viewport" content="width=device-width, initial-scale=1"></head><script> window.setInterval(function(){ location.reload(); }, 1000); </script><body style="text-align:center;"><h1>Server Test</h1><h4>Messages Recieved: ' + messageCounter + '</h4></body></html>');
-  //res.sendFile(__dirname + "/index.html");
-  
   // Construct data object, give to pre-compiled template object, shove data in, then send out the 
   // spewed out result from the template object back to the person requesting the page.
   var data = {
     messageCounter : totalMessages,
     numConnections : totalConnections
   };
-  res.send(template(data));
-
+  res.end(template(data));
+s
 
   // Track pagevisits
   if(totalMessages % 10 == 0)
@@ -41,20 +37,53 @@ http.listen(port, "localhost", function(){
 });
 
 
+// MOVE THIS DOWN BELOW FUNC TO TEST LATER
+var currAdmin = null;
+function SendAdmin(eventName, value)
+{
+  if(currAdmin == null) 
+    return;
+
+  io.to(currAdmin).emit(eventName, value);
+}
+
 // Handle socket.io connections
 io.on('connection', function(socket){
   
   // Keep track of the fact that someone has connected.
   console.log('a user connected');
-  totalConnections++;
-  
+
+  ++totalConnections; 
+  SendAdmin("connections-changed-admin", totalConnections);
+
+
   // Register our disconnect event.
   socket.on('disconnect', function(){
     console.log('user disconnected');
+    
+    if(socket.id == currAdmin)
+      currAdmin = null;
+
+    --totalConnections;
+    SendAdmin("connections-changed-admin", totalConnections);
   });
 
-  socket.on('messageEvent', function (data){
+
+  socket.on("register-admin", function(){
+    if(currAdmin != null)
+      SendAdmin("boot-admin");
+    
+    currAdmin = socket.id;
+    SendAdmin("connections-changed-admin", totalConnections);
+    SendAdmin("messages-recieved-admin", totalMessages);
+  });
+
+
+  // Process message events 
+  socket.on('message-event', function (data){
     console.log(data);
-    totalMessages++;
+    
+    ++totalMessages;
+    SendAdmin("messages-recieved-admin", totalMessages);
   });
 });

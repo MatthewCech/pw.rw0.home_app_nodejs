@@ -1,6 +1,6 @@
 // Variables
 var domain   = "http://home.rw0.pw";
-var filepath = "/serverTest";
+var filepath = "/clientServer";
 var socket = io(domain, { path: filepath + "/socket.io" });
 
 
@@ -8,6 +8,6 @@ var socket = io(domain, { path: filepath + "/socket.io" });
 function changeText(){
   var input = document.getElementById("toSend").value;
   console.log("Attempting to send: " + input);
-  socket.emit('messageEvent', { data: input });
+  socket.emit('message-event', { data: input });
   document.getElementById("toChange").innerHTML = "Sent: " + input;
 }

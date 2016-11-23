@@ -1,0 +1,7 @@
+apps:
+  - script : index.js
+    name   : clientServer_2
+    watch  : true
+    env    :
+      PORT: 42013
+

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Handle setup and page info-->
+    <meta charset="utf-8">
+    <meta name="description" content="Client Testing">
+    <meta name="author" content="Reverie Wisp">
+    <title>Client Sending Tests</title>
+
+    <!-- Mobile rendering handling -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body style="text-align:center;">
+    <input id="toSend">
+    <button type="button" onclick="changeText()">Send Generic Message</button>
+    <h4 id="toChange">(sent message will appear here)</h4>
+    <p><a href="../">Go Back</a></p>
+
+    <!-- Script attachment at the end, use ctrl-slash -->
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="my.js" type="text/javascript"></script>
+  </body>
+</html>

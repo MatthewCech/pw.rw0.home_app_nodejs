@@ -11,14 +11,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body style="text-align:center;">
+
+    <!-- Client functionality mocking -->
+    <h3>Client Functionality:</h3>
     <button type="button" onclick="MockClientConnect()">Mock Client Connect</button>
+
     <br/>
+    <br/>
+    <input id="otherUser">
+    <button type="button" onclick="MockStartSession()">Mock Start Session</button>
+
+    <br/>
+    <br/>
+    <input id="gameEventInput">
+    <button type="button" onclick="MockGameEvent()">Mock Game Event</button>
+    <p id="msg">Last Event: <span>*</span> </p>
+
+    <button id="pingButton" type="button" onclick="PingServer()">Ping! Last time: <span>*</span></button>
+    
+    <br/>
+    <br/>
+    <button type="button" onclick="RequestDisconnect()">Disconnect</button>
+
+    <!-- Server functionality mocking -->
+    <br/>
+    <br/>
+    <br/>
+    <hr/>
+    <h3>Server Functionality:</h3>
+    <button type="button" onclick="MockGetClientList()">Mock Get Client List</button>
+    <br/>
+
+    <!-- Send what you want as just data -->
+    <br/>
+    <br/>
+    <hr/>
+    <h3>Send Whatever:</h3>
     <input id="toSend">
     <button type="button" onclick="ChangeText()">Send Generic Message</button>
-    <h4 id="toChange">(sent message will appear here)</h4>
+    <p id="toChange">(sent message will appear here)</p>
     <p><a href="../">Go Back</a></p>
 
     <!-- Script attachment at the end, use ctrl-slash -->
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+      integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
+      crossorigin="anonymous"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="my.js" type="text/javascript"></script>
   </body>

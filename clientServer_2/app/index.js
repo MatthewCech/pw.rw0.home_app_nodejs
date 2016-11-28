@@ -107,7 +107,7 @@ io.on('connection', function(socket){
     ++totalMessages;
     SendAdmin("messages-recieved-admin", totalMessages);
     
-    if(!VerifyCurrentVersion(socket.id, data))
+    if(!ValidateClientCommand(socket.id, data))
       return;
 
     if(data["message-type"] == "newClientConnect")
@@ -138,7 +138,7 @@ io.on('connection', function(socket){
 // Server Vars
 var clientsConnected=[];
 var gameSessions=[];
-var API_VERSION = 1;
+var API_VERSION = 1; //!Todo: Move to process.yml as envar
 var nextSessionID = 1;
 
   ///////////////////////////
@@ -167,7 +167,7 @@ function ArrayHas(arr, toCheck){
 // Verify the current version of the API being used.
 // At this point, we only accept the current version 
 // and nothing else.
-function VerifyCurrentVersion(socketID, data){
+function ValidateClientCommand(socketID, data){
   if(data["api"] == undefined 
     || data["session-id"] == undefined
     || data["client-id"] == undefined
